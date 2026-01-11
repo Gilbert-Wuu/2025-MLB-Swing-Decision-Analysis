@@ -25,19 +25,18 @@ The analysis integrates data from **Baseball Savant (Statcast)** and **Baseball 
 
 ## 📈 Key Insights & Results
 
-### Hitter Archetypes (Clusters)
-Our model identified 5 meaningful groups, including:
-- **The Elites**: High discipline paired with elite hard-hit ability.
-- **The Aggressors**: High chase rates but compensated by elite "Bad Ball" hitting skills.
-- **The Contact Machines**: Short swing lengths and high squared-up efficiency.
-- **High Risk / Low Reward**: Hitters with high whiff rates and poor decision-making quality.
+### 1. Cost of Chase: Chase Rate vs. Hard Hit Rate
+By plotting decision quality against physical output, we identified four distinct quadrants. This visualization highlights how different hitter profiles navigate the trade-off between aggression and quality of contact.
 
-### The Strategic Map (Cost of Chase)
-By plotting **Chase Rate** against **Hard Hit Rate**, we categorized hitters into four quadrants:
-1. **Elite: Patient & Powerful**: Top-left quadrant. High discipline and high impact.
-2. **Aggressive: Bad Ball Hitters**: Top-right quadrant. High chase but high damage output.
-3. **Passive / Low Impact**: Bottom-left quadrant. Disciplined but lacking raw power.
-4. **High Risk / Low Reward**: Bottom-right quadrant. Excessive chasing with minimal hard contact.
+![Strategic Map](images/cost-of-chase.png)
+
+- **ELITE (Patient & Powerful)**: Hitters like **Aaron Judge**, **Kyle Schwarber** and **Shohei Ohtani** exhibit elite plate discipline while maintaining the league's highest hard-hit rates.
+- **AGGRESSIVE (Bad Ball Hitters)**: This group, including stars like **Manny Machado** and **Oniel Cruz**, possesses the rare physical ability to turn "bad balls" into high-velocity contact despite high chase rates.
+
+### 2. Cluster Analysis
+The strong alignment between K-Means labels and the Four-Quadrant Map proves that the model successfully captured the underlying "DNA" of MLB hitting styles.
+
+![Cluster Chart](images/cluster-PCA.png)
 
 ## 🚀 Future Work
 - [ ] **2-Strike Approach Analysis**: Comparing swing length and bat speed adjustments in 2-strike counts versus regular counts.
