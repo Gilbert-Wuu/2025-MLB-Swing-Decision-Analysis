@@ -9,7 +9,7 @@ Traditional baseball analytics often separate physical tools (Power) from mental
 ## 🛠️ Data & Methodology
 
 ### Data Sources
-The analysis integrates data from [**Baseball Savant (Statcast)**]([url](https://www.baseball-reference.com/)) and [**Baseball Reference**]([url](https://baseballsavant.mlb.com/)) for the 2025 season:
+The analysis integrates data from [**Baseball Savant (Statcast)**]([url](https://baseballsavant.mlb.com/)) and [**Baseball Reference**]([url](https://www.baseball-reference.com/)) for the 2025 season:
 - **Bat Tracking**: Average Bat Speed, Swing Length, Squared-up %, and Blast %.
 - **Exit Velocity & Barrels**: Hard Hit Rate (95+ mph), Barrel %, and Average EV.
 - **Plate Discipline**: Zone Swing %, Out-of-Zone Swing % (Chase Rate), and Whiff %.
@@ -28,14 +28,18 @@ The analysis integrates data from [**Baseball Savant (Statcast)**]([url](https:/
 ### 1. Batter Archetype Analysis (Clustering)
 ![Metric Chart](images/cluster-metric.png)
 ![Radar Chart](images/cluster-radar.png)
-The strong alignment between K-Means labels and the Four-Quadrant Map proves that the model successfully captured the underlying "DNA" of MLB hitting styles.
 
-#### **Cluster Characteristics:**
-- **Cluster 0: The All-Around Elites (45 Players)**: As shown in the radar chart, this group leads in almost all categories. They combine elite bat speed with high discipline and hard-hit output. However, high whiff% come as the trad-off. Hitters like **Shohei Ohtani*, **Aaron Judge**, and **Kyle Schwarber** belong to this group. 
-- **Cluster 1: Disciplined Power (43 Players)**: Strong power profiles with a high focus on zone selection. They have almost same level hard hit rate as cluster 0, but perform way more better in whiff%. **Vladimir Guerrero Jr.** and **Juan Soto** sit in this group.
-- **Cluster 2: Aggressive Swingers (28 Players)**: High bat speed but lower discipline scores; they rely on raw physical tools. This group includes **Mookie Betts** and **Jake Cronenworth**.
-- **Cluster 3: The Contact Machines (4 Players)**: The rarest breed. Includes contact machines like **Luis Arraez** and **Steven Kwan**. They prioritize "putting the ball in play" and bat control over raw power.
-- **Cluster 4: The Dynamic Multi-Tool Playmakers (24 Players)**: While generally sitting near or slightly below the league average in raw exit velocity and bat speed, this group features established stars who provide immense value through situational hitting, versatility, and consistent contact. Notable players include **Trea Turner**, **Bo Bichette**, **Salvador Perez**, and **Pete Crow-Armstrong**.
+Based on our K-Means clustering ($K=5$), the 144 qualified hitters were segmented into the following strategic groups:
+
+| Cluster | Group Name | Characteristics | Representative Stars | Sample Size |
+|:---:|:---|:---|:---|:---:|
+| **0** | **The All-Around Elites** | Elite bat speed + High discipline + High impact; High Whiff% as a trade-off. | Shohei Ohtani, Aaron Judge, Kyle Schwarber | 45 |
+| **1** | **Disciplined Power** | Strong power + Elite zone selection; significantly lower Whiff% than Cluster 0. | Juan Soto, Vladimir Guerrero Jr. | 43 |
+| **2** | **Aggressive Swingers** | High bat speed; lower discipline scores; heavy reliance on raw physical tools. | Mookie Betts, Jake Cronenworth | 28 |
+| **3** | **The Contact Machines** | Extreme bat control + Short swing path; prioritize "putting the ball in play" over power. | Luis Arraez, Steven Kwan | 4 |
+| **4** | **Dynamic Multi-Tool** | Balanced output; value through situational hitting, versatility, and consistent contact. | Trea Turner, Bo Bichette, Salvador Perez | 24 |
+
+---
 
 ![Cluster Chart](images/cluster-PCA.png)
 
