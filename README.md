@@ -9,7 +9,7 @@ Traditional baseball analytics often separate physical tools (Power) from mental
 ## 🛠️ Data & Methodology
 
 ### Data Sources
-The analysis integrates data from **Baseball Savant (Statcast)** and **Baseball Reference** for the 2025 season:
+The analysis integrates data from [**Baseball Savant (Statcast)**]([url](https://www.baseball-reference.com/)) and [**Baseball Reference**]([url](https://baseballsavant.mlb.com/)) for the 2025 season:
 - **Bat Tracking**: Average Bat Speed, Swing Length, Squared-up %, and Blast %.
 - **Exit Velocity & Barrels**: Hard Hit Rate (95+ mph), Barrel %, and Average EV.
 - **Plate Discipline**: Zone Swing %, Out-of-Zone Swing % (Chase Rate), and Whiff %.
@@ -23,9 +23,25 @@ The analysis integrates data from **Baseball Savant (Statcast)** and **Baseball 
 3. **Clustering**: Applied **K-Means Clustering** with the Elbow Method to identify 5 distinct hitter archetypes.
 4. **Strategic Mapping**: Developed a 4-Quadrant Strategic Map to visualize the relationship between decision-making and physical output.
 
-## 📈 Key Insights & Results
+## 📈 Key Insights & Visualizations
 
-### 1. Cost of Chase: Chase Rate vs. Hard Hit Rate
+### 1. Batter Archetype Analysis (Clustering)
+![Metric Chart](images/cluster-metric.png)
+![Radar Chart](images/cluster-radar.png)
+The strong alignment between K-Means labels and the Four-Quadrant Map proves that the model successfully captured the underlying "DNA" of MLB hitting styles.
+
+#### **Cluster Characteristics:**
+- **Cluster 0: The All-Around Elites (45 Players)**: As shown in the radar chart, this group leads in almost all categories. They combine elite bat speed with high discipline and hard-hit output. However, high whiff% come as the trad-off. Hitters like **Shohei Ohtani*, **Aaron Judge**, and **Kyle Schwarber** belong to this group. 
+- **Cluster 1: Disciplined Power (43 Players)**: Strong power profiles with a high focus on zone selection. They have almost same level hard hit rate as cluster 0, but perform way more better in whiff%. **Vladimir Guerrero Jr.** and **Juan Soto** sit in this group.
+- **Cluster 2: Aggressive Swingers (28 Players)**: High bat speed but lower discipline scores; they rely on raw physical tools. This group includes **Mookie Betts** and **Jake Cronenworth**.
+- **Cluster 3: The Contact Machines (4 Players)**: The rarest breed. Includes contact machines like **Luis Arraez** and **Steven Kwan**. They prioritize "putting the ball in play" and bat control over raw power.
+- **Cluster 4: The Dynamic Multi-Tool Playmakers (24 Players)**: While generally sitting near or slightly below the league average in raw exit velocity and bat speed, this group features established stars who provide immense value through situational hitting, versatility, and consistent contact. Notable players include **Trea Turner**, **Bo Bichette**, **Salvador Perez**, and **Pete Crow-Armstrong**.
+
+![Cluster Chart](images/cluster-PCA.png)
+
+While the X and Y axes of the PCA plot do not represent specific physical metrics, they serve as a 2D projection of the 13-dimensional hitter profiles. The clear separation of colors (clusters) validates that our K-Means model has successfully identified distinct, non-overlapping archetypes based on swing physics and plate discipline.
+
+### 2. Cost of Chase: Chase Rate vs. Hard Hit Rate
 By plotting decision quality against physical output, we identified four distinct quadrants. This visualization highlights how different hitter profiles navigate the trade-off between aggression and quality of contact.
 
 ![Strategic Map](images/cost-of-chase.png)
@@ -33,12 +49,7 @@ By plotting decision quality against physical output, we identified four distinc
 - **ELITE (Patient & Powerful)**: Hitters like **Aaron Judge**, **Kyle Schwarber** and **Shohei Ohtani** exhibit elite plate discipline while maintaining the league's highest hard-hit rates.
 - **AGGRESSIVE (Bad Ball Hitters)**: This group, including stars like **Manny Machado** and **Oniel Cruz**, possesses the rare physical ability to turn "bad balls" into high-velocity contact despite high chase rates.
 
-### 2. Cluster Analysis
-The strong alignment between K-Means labels and the Four-Quadrant Map proves that the model successfully captured the underlying "DNA" of MLB hitting styles.
-
-![Cluster Chart](images/cluster-PCA.png)
 
 ## 🚀 Future Work
 - [ ] **2-Strike Approach Analysis**: Comparing swing length and bat speed adjustments in 2-strike counts versus regular counts.
-- [ ] **Temporal Analysis**: Tracking how hitter clusters shift throughout the season.
 - [ ] **Predictive Modeling**: Using these clusters to predict future SLG or wOBA stability.
