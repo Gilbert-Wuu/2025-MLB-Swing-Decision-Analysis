@@ -9,7 +9,7 @@ Traditional baseball analytics often separate physical tools (Power) from mental
 ## 🛠️ Data & Methodology
 
 ### Data Sources
-The analysis integrates data from [**Baseball Savant (Statcast)**]([url](https://baseballsavant.mlb.com/)) and [**Baseball Reference**]([url](https://www.baseball-reference.com/)) for the 2025 season:
+The analysis integrates data from [**Baseball Savant (Statcast)**](https://baseballsavant.mlb.com/) and [**Baseball Reference**](https://www.baseball-reference.com/) for the 2025 season:
 - **Bat Tracking**: Average Bat Speed, Swing Length, Squared-up %, and Blast %.
 - **Exit Velocity & Barrels**: Hard Hit Rate (95+ mph), Barrel %, and Average EV.
 - **Plate Discipline**: Zone Swing %, Out-of-Zone Swing % (Chase Rate), and Whiff %.
