@@ -45,6 +45,8 @@ Based on our K-Means clustering ($K=5$), the 144 qualified hitters were segmente
 
 While the X and Y axes of the PCA plot do not represent specific physical metrics, they serve as a 2D projection of the 13-dimensional hitter profiles. The clear separation of colors (clusters) validates that our K-Means model has successfully identified distinct, non-overlapping archetypes based on swing physics and plate discipline.
 
+---
+
 ### 2. Cost of Chase: Chase Rate vs. Hard Hit Rate
 By plotting decision quality against physical output, we identified four distinct quadrants. This visualization highlights how different hitter profiles navigate the trade-off between aggression and quality of contact.
 
@@ -53,7 +55,35 @@ By plotting decision quality against physical output, we identified four distinc
 - **ELITE (Patient & Powerful)**: Hitters like **Aaron Judge**, **Kyle Schwarber** and **Shohei Ohtani** exhibit elite plate discipline while maintaining the league's highest hard-hit rates.
 - **AGGRESSIVE (Bad Ball Hitters)**: This group, including stars like **Manny Machado** and **Oniel Cruz**, possesses the rare physical ability to turn "bad balls" into high-velocity contact despite high chase rates.
 
+---
 
-## 🚀 Future Work
-- [ ] **2-Strike Approach Analysis**: Comparing swing length and bat speed adjustments in 2-strike counts versus regular counts.
-- [ ] **Predictive Modeling**: Using these clusters to predict future SLG or wOBA stability.
+### 3. The Art of Adjustment: 2-Strike Approach Analysis
+This section analyzes how hitters modify their physical swing mechanics when facing a 2-strike count. By comparing season averages to 2-strike performance, we quantify the "survival instinct" of elite batters.
+
+#### **I. Swing Shortening vs. Whiff Reduction**
+Most MLB hitters adopt a defensive approach in 2-strike counts by shortening their swing path. This visualization tracks the effectiveness of this trade-off.
+
+![2-Strike Adjustment](images/2s_swinglength_vs_whiff.png)
+
+- **Tactical Adjusters**: Players in the bottom-left quadrant, like **Carlos Correa** and **Trea Turner**, significantly shorten their swing length to combat whiffs. This proves a high level of situational awareness and willingness to compromise power for contact.
+- **The Natural Outliers**: Hitters like **Juan Soto** maintain a more consistent swing profile, relying on elite plate discipline rather than mechanical changes to survive deep counts.
+
+#### **II. The Trade-off: Gaining Contact vs. Losing Quality**
+The ultimate goal of a 2-strike adjustment is to reduce whiffs without catastrophic losses in hitting quality (Measured by `Squared-up per Swing`).
+
+![2-Strike Trade-off](images/2s_contact_vs_quality.png)
+
+- **Monster Efficiency (The Judge Quadrant)**: **Aaron Judge** defies the standard trade-off. He resides in the **top-left quadrant**, meaning he successfully reduces his Whiff% while simultaneously *increasing* his Squared-up rate. This indicates superior bat control under pressure. Even after two strike, he strikes fear into every pitcher he faced.
+- **Defensive Compromise**: In contrast, while many players reduce their whiff rates, they suffer a sharp decline in hitting quality (Bottom-left). This "Slapper" approach ensures the ball is put in play but with significantly less impact.
+- **The All-Around Stars**: **Shohei Ohtani** and **Juan Soto** serve as benchmarks for elite stability, maintaining high-quality contact profiles even when adjusting for contact.
+
+---
+
+## 🚀 Key Takeaways & Conclusion
+
+- **Model Validity**: The strong alignment between K-Means clusters and 2-strike adaptation patterns validates that our archetypes reflect real-world hitting philosophies.
+- **The "Power vs. Contact" Spectrum**: From the extreme contact of **Luis Arraez** to the high-risk/high-reward profile of **Aaron Judge**, hitters navigate their physical limitations through tactical swing adjustments.
+- **Strategic Value**: This analysis provides a framework for coaches and front offices to identify which hitters possess a "B-swing" for survival and which hitters remain aggressive regardless of the count.
+
+---
+*Created as a part of a personal Baseball Research & Analytics project.*
