@@ -1,4 +1,4 @@
-# 2025-MLB-Swing-Decision-Analysis
+# 2025 MLB Swing Decision Analysis
 
 This project utilizes advanced MLB Statcast data to analyze and cluster Major League hitters based on their physical traits, plate discipline, and batted-ball quality. By integrating "Bat Tracking" metrics with "Swing Decisions," this research identifies distinct hitter archetypes and explores the strategic trade-offs between aggression and efficiency.
 
