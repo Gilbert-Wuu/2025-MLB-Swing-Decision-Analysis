@@ -33,17 +33,17 @@ Based on our K-Means clustering ($K=5$), the 144 qualified hitters were segmente
 
 | Cluster | Group Name | Characteristics | Representative Stars | Sample Size |
 |:---:|:---|:---|:---|:---:|
-| **0** | **The All-Around Elites** | Elite bat speed + High discipline + High impact; High Whiff% as a trade-off. | Shohei Ohtani, Aaron Judge, Kyle Schwarber | 45 |
-| **1** | **Disciplined Power** | Strong power + Elite zone selection; significantly lower Whiff% than Cluster 0. | Juan Soto, Vladimir Guerrero Jr. | 43 |
-| **2** | **Aggressive Swingers** | High bat speed; lower discipline scores; heavy reliance on raw physical tools. | Mookie Betts, Jake Cronenworth | 28 |
-| **3** | **The Contact Machines** | Extreme bat control + Short swing path; prioritize "putting the ball in play" over power. | Luis Arraez, Steven Kwan | 4 |
-| **4** | **Dynamic Multi-Tool** | Balanced output; value through situational hitting, versatility, and consistent contact. | Trea Turner, Bo Bichette, Salvador Perez | 24 |
+| **0** | **The All-Around Elites** | Max physical tools + High discipline. High-risk/High-reward profile with elite power but high Whiff%. | Shohei Ohtani, Aaron Judge, Kyle Schwarber | 45 |
+| **1** | **Efficient Power** | Optimized swing path; maintains elite power output with significantly lower Whiff% than Cluster 0. | Juan Soto, Vladimir Guerrero Jr. | 43 |
+| **2** | **Aggressive Swingers** | Below-average bat speed but excels in making contact; high aggression leads to lower discipline scores but fewer whiffs. | Mookie Betts, Jake Cronenworth | 28 |
+| **3** | **The Contact Machines** | Extreme bat control + Shortest swing path; prioritize "putting the ball in play" over power. | Luis Arraez, Steven Kwan | 4 |
+| **4** | **Dynamic Multi-Tool** | Balanced situational hitters; value derived from versatility and consistent, stable production. | Trea Turner, Bo Bichette, Salvador Perez | 24 |
 
 ---
 
-![Cluster Chart](images/cluster-PCA.png)
-
+#### Dimension Reduction via PCA
 While the X and Y axes of the PCA plot do not represent specific physical metrics, they serve as a 2D projection of the 13-dimensional hitter profiles. The clear separation of colors (clusters) validates that our K-Means model has successfully identified distinct, non-overlapping archetypes based on swing physics and plate discipline.
+![Cluster Chart](images/cluster-PCA.png)
 
 ---
 
@@ -54,6 +54,13 @@ By plotting decision quality against physical output, we identified four distinc
 
 - **ELITE (Patient & Powerful)**: Hitters like **Aaron Judge**, **Kyle Schwarber** and **Shohei Ohtani** exhibit elite plate discipline while maintaining the league's highest hard-hit rates.
 - **AGGRESSIVE (Bad Ball Hitters)**: This group, including stars like **Manny Machado** and **Oniel Cruz**, possesses the rare physical ability to turn "bad balls" into high-velocity contact despite high chase rates.
+
+#### **Deep Dive: The Extremes of Chase Logic**
+Beyond the quadrants, we identified key players who define the absolute boundaries of the "Cost of Chase" spectrum:
+
+* **The Discipline Anchors (Far-Left)**: **Juan Soto** and **Trent Grisham** reside at the extreme left of the X-axis. They possess an elite "Inner Clock," chasing pitches outside the zone at a rate significantly lower than the league average.
+* **The Rule Breaker (Far-Right)**: **Salvador Perez** represents a fascinating anomaly. Despite having one of the highest chase rates in the league, he maintains a Hard Hit rate well above the league average. This suggests that for certain hitters, elite _hand-eye coordination_ allows them to mitigate the "cost" of chasing, effectively expanding their personal strike zone beyond traditional boundaries.
+* **Strategic Insight**: This analysis proves that while a high chase rate is a "death sentence" for most, it can be a viable (though high-risk) stylistic choice for hitters with elite physical tools.
 
 ---
 
@@ -66,14 +73,15 @@ Most MLB hitters adopt a defensive approach in 2-strike counts by shortening the
 ![2-Strike Adjustment](images/2s_swinglength_vs_whiff.png)
 
 - **Tactical Adjusters**: Players in the bottom-left quadrant, like **Carlos Correa** and **Trea Turner**, significantly shorten their swing length to combat whiffs. This proves a high level of situational awareness and willingness to compromise power for contact.
-- **The Natural Outliers**: Hitters like **Juan Soto** maintain a more consistent swing profile, relying on elite plate discipline rather than mechanical changes to survive deep counts.
+- **The Elite Adjusters**: Hitters like **Juan Soto** and **Vladimir Guerrero Jr.** demonstrate the "Gold Standard" for 2-strike adjustments among power hitters. They show a clear and intentional reduction in both swing length and whiff rate. This _balanced adaptation_ allows them to remain elite threats in deep counts by trading a fraction of their maximum leverage for significant gains in contact security.
+- **The Physical Outliers**: Unlike most hitters who must shorten their swing to reduce whiffs, power hitters like **Aaron Judge** and **Kyle Schwarber** defy traditional logic by maintaining their full, aggressive swing length even with two strikes. Remarkably, their whiff rates still decrease, suggesting their elite physical tools allow them to dominate the zone without switching to a defensive mode.
 
 #### **II. The Trade-off: Gaining Contact vs. Losing Quality**
 The ultimate goal of a 2-strike adjustment is to reduce whiffs without catastrophic losses in hitting quality (Measured by `Squared-up per Swing`).
 
 ![2-Strike Trade-off](images/2s_contact_vs_quality.png)
 
-- **Monster Efficiency (The Judge Quadrant)**: **Aaron Judge** defies the standard trade-off. He resides in the **top-left quadrant**, meaning he successfully reduces his Whiff% while simultaneously *increasing* his Squared-up rate. This indicates superior bat control under pressure. Even after two strike, he strikes fear into every pitcher he faced.
+- **Monster Efficiency**: **Aaron Judge** defies the standard trade-off. He resides in the **top-left quadrant**, meaning he successfully reduces his Whiff% while simultaneously *increasing* his Squared-up rate. This indicates superior bat control under pressure. Even after two strike, he strikes fear into every pitcher he faced.
 - **Defensive Compromise**: In contrast, while many players reduce their whiff rates, they suffer a sharp decline in hitting quality (Bottom-left). This "Slapper" approach ensures the ball is put in play but with significantly less impact.
 - **The All-Around Stars**: **Shohei Ohtani** and **Juan Soto** serve as benchmarks for elite stability, maintaining high-quality contact profiles even when adjusting for contact.
 
