@@ -2,6 +2,10 @@
 
 Analyzes MLB batter swing decisions using Statcast bat-tracking, exit velocity, and plate discipline data. Players are segmented into five behavioral archetypes via K-Means clustering.
 
+**Live dashboard:** https://2025-mlb-swing-decision-analysis.streamlit.app/
+
+![Dashboard Preview](images/dashboard-screenshot.png)
+
 ## Data Sources
 
 | File | Source | Records |
@@ -24,8 +28,6 @@ All datasets merge on `player_id`. The inner join on all three season files yiel
 - **Chase Efficiency** = Hard Hit% / Chase Rate
 
 ## Dashboard
-
-**Live app:** https://2025-mlb-swing-decision-analysis.streamlit.app/
 
 Interactive Streamlit dashboard with Plotly charts, cluster filtering, and player search.
 
