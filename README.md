@@ -1,97 +1,57 @@
 # 2025 MLB Swing Decision Analysis
 
-This project utilizes advanced MLB Statcast data to analyze and cluster Major League hitters based on their physical traits, plate discipline, and batted-ball quality. By integrating "Bat Tracking" metrics with "Swing Decisions," this research identifies distinct hitter archetypes and explores the strategic trade-offs between aggression and efficiency.
+Analyzes MLB batter swing decisions using Statcast bat-tracking, exit velocity, and plate discipline data. Players are segmented into five behavioral archetypes via K-Means clustering.
 
-## 📊 Project Overview
+## Data Sources
 
-Traditional baseball analytics often separate physical tools (Power) from mental approach (Discipline). This project bridges that gap by using Unsupervised Learning (K-Means) to profile hitters based on how their swing mechanics interact with their plate discipline.
+| File | Source | Records |
+|------|--------|---------|
+| `bat-tracking.csv` | Baseball Savant (Statcast) | 226 |
+| `exit_velocity.csv` | Baseball Savant (Statcast) | 251 |
+| `stats.csv` | Baseball Reference / Statcast | 144 |
+| `2-strike-bat-tracking.csv` | Baseball Savant (2-strike filter) | ~144 |
 
-## 🛠️ Data & Methodology
+All datasets merge on `player_id`. The inner join on all three season files yields 144 players.
 
-### Data Sources
-The analysis integrates data from [**Baseball Savant (Statcast)**](https://baseballsavant.mlb.com/) and [**Baseball Reference**](https://www.baseball-reference.com/) for the 2025 season:
-- **Bat Tracking**: Average Bat Speed, Swing Length, Squared-up %, and Blast %.
-- **Exit Velocity & Barrels**: Hard Hit Rate (95+ mph), Barrel %, and Average EV.
-- **Plate Discipline**: Zone Swing %, Out-of-Zone Swing % (Chase Rate), and Whiff %.
+## Key Metrics
 
-### Workflow
-1. **ETL & Data Merging**: Aligning multi-source datasets via `player_id`.
-2. **Feature Engineering**:
-   - `Discipline Score`: Calculated as `Zone Swing % - Chase %` to measure strike zone judgment.
-   - `Power Efficiency`: Ratio of `Average Exit Velocity` to `Bat Speed`.
-   - `Chase Efficiency`: `Hard Hit Rate` relative to `Chase Rate` to measure the cost of aggression.
-3. **Clustering**: Applied **K-Means Clustering** with the Elbow Method to identify 5 distinct hitter archetypes.
-4. **Strategic Mapping**: Developed a 4-Quadrant Strategic Map to visualize the relationship between decision-making and physical output.
+- **Bat Speed / Swing Length** — Statcast bat-tracking
+- **Squared-Up%, Blast%** — contact quality from bat-tracking
+- **Zone Swing% / Chase%** — plate discipline from stats
+- **Avg EV, EV95+%, Barrel%** — hit quality from exit velocity
+- **Discipline Score** = Zone Swing% − Chase%
+- **Power Efficiency** = Avg EV / Bat Speed
+- **Chase Efficiency** = Hard Hit% / Chase Rate
 
-## 📈 Key Insights & Visualizations
+## Dashboard
 
-### 1. Batter Archetype Analysis (Clustering)
-![Metric Chart](images/cluster-metric.png)
-![Radar Chart](images/cluster-radar.png)
+**Live app:** https://2025-mlb-swing-decision-analysis.streamlit.app/
 
-Based on our K-Means clustering ($K=5$), the 144 qualified hitters were segmented into the following strategic groups:
+Interactive Streamlit dashboard with Plotly charts, cluster filtering, and player search.
 
-| Cluster | Group Name | Characteristics | Representative Stars | Sample Size |
-|:---:|:---|:---|:---|:---:|
-| **0** | **The All-Around Elites** | Max physical tools + High discipline. High-risk/High-reward profile with elite power but high Whiff%. | Shohei Ohtani, Aaron Judge, Kyle Schwarber | 45 |
-| **1** | **Efficient Power** | Optimized swing path; maintains elite power output with significantly lower Whiff% than Cluster 0. | Juan Soto, Vladimir Guerrero Jr. | 43 |
-| **2** | **Aggressive Swingers** | Below-average bat speed but excels in making contact; high aggression leads to lower discipline scores but fewer whiffs. | Mookie Betts, Jake Cronenworth | 28 |
-| **3** | **The Contact Machines** | Extreme bat control + Shortest swing path; prioritize "putting the ball in play" over power. | Luis Arraez, Steven Kwan | 4 |
-| **4** | **Dynamic Multi-Tool** | Balanced situational hitters; value derived from versatility and consistent, stable production. | Trea Turner, Bo Bichette, Salvador Perez | 24 |
+### Setup
 
----
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
 
-#### Dimension Reduction via PCA
-While the X and Y axes of the PCA plot do not represent specific physical metrics, they serve as a 2D projection of the 13-dimensional hitter profiles. The clear separation of colors (clusters) validates that our K-Means model has successfully identified distinct, non-overlapping archetypes based on swing physics and plate discipline.
-![Cluster Chart](images/cluster-PCA.png)
+Place CSV files in the project root or a `data/` subdirectory. The app detects both automatically.
 
----
+### Features
 
-### 2. Cost of Chase: Chase Rate vs. Hard Hit Rate
-By plotting decision quality against physical output, we identified four distinct quadrants. This visualization highlights how different hitter profiles navigate the trade-off between aggression and quality of contact.
+- **KPI row** — league avg bat speed, chase rate, hard hit rate, player count; all update with cluster filter
+- **PCA scatter** — 2D projection of all 13 features, color-coded by archetype with centroid markers
+- **Radar chart** — normalized metric profiles per cluster
+- **Cost of Chase map** — chase rate vs hard hit rate, quadrant-labeled with annotated outliers
+- **2-Strike scatter** — swing length and whiff rate deltas vs season average, quadrant-labeled
+- **Cluster summary table** — mean metrics and representative stars per archetype
+- **Player spotlight** — search any player to see their metrics vs cluster and league average as a bar chart; defaults to a league-wide violin distribution
 
-![Strategic Map](images/cost-of-chase.png)
+## Notebook
 
-- **ELITE (Patient & Powerful)**: Hitters like **Aaron Judge**, **Kyle Schwarber** and **Shohei Ohtani** exhibit elite plate discipline while maintaining the league's highest hard-hit rates.
-- **AGGRESSIVE (Bad Ball Hitters)**: This group, including stars like **Manny Machado** and **Oniel Cruz**, possesses the rare physical ability to turn "bad balls" into high-velocity contact despite high chase rates.
+The original exploratory analysis is in `swing_analysis.ipynb`. Run with:
 
-#### **Deep Dive: The Extremes of Chase Logic**
-Beyond the quadrants, we identified key players who define the absolute boundaries of the "Cost of Chase" spectrum:
-
-* **The Discipline Anchors (Far-Left)**: **Juan Soto** and **Trent Grisham** reside at the extreme left of the X-axis. They possess an elite "Inner Clock," chasing pitches outside the zone at a rate significantly lower than the league average.
-* **The Rule Breaker (Far-Right)**: **Salvador Perez** represents a fascinating anomaly. Despite having one of the highest chase rates in the league, he maintains a Hard Hit rate well above the league average. This suggests that for certain hitters, elite _hand-eye coordination_ allows them to mitigate the "cost" of chasing, effectively expanding their personal strike zone beyond traditional boundaries.
-* **Strategic Insight**: This analysis proves that while a high chase rate is a "death sentence" for most, it can be a viable (though high-risk) stylistic choice for hitters with elite physical tools.
-
----
-
-### 3. The Art of Adjustment: 2-Strike Approach Analysis
-This section analyzes how hitters modify their physical swing mechanics when facing a 2-strike count. By comparing season averages to 2-strike performance, we quantify the "survival instinct" of elite batters.
-
-#### **I. Swing Shortening vs. Whiff Reduction**
-Most MLB hitters adopt a defensive approach in 2-strike counts by shortening their swing path. This visualization tracks the effectiveness of this trade-off.
-
-![2-Strike Adjustment](images/2s_swinglength_vs_whiff.png)
-
-- **Tactical Adjusters**: Players in the bottom-left quadrant, like **Carlos Correa** and **Trea Turner**, significantly shorten their swing length to combat whiffs. This proves a high level of situational awareness and willingness to compromise power for contact.
-- **The Elite Adjusters**: Hitters like **Juan Soto** and **Vladimir Guerrero Jr.** demonstrate the "Gold Standard" for 2-strike adjustments among power hitters. They show a clear and intentional reduction in both swing length and whiff rate. This _balanced adaptation_ allows them to remain elite threats in deep counts by trading a fraction of their maximum leverage for significant gains in contact security.
-- **The Physical Outliers**: Unlike most hitters who must shorten their swing to reduce whiffs, power hitters like **Aaron Judge** and **Kyle Schwarber** defy traditional logic by maintaining their full, aggressive swing length even with two strikes. Remarkably, their whiff rates still decrease, suggesting their elite physical tools allow them to dominate the zone without switching to a defensive mode.
-
-#### **II. The Trade-off: Gaining Contact vs. Losing Quality**
-The ultimate goal of a 2-strike adjustment is to reduce whiffs without catastrophic losses in hitting quality (Measured by `Squared-up per Swing`).
-
-![2-Strike Trade-off](images/2s_contact_vs_quality.png)
-
-- **Monster Efficiency**: **Aaron Judge** defies the standard trade-off. He resides in the **top-left quadrant**, meaning he successfully reduces his Whiff% while simultaneously *increasing* his Squared-up rate. This indicates superior bat control under pressure. Even after two strike, he strikes fear into every pitcher he faced.
-- **Defensive Compromise**: In contrast, while many players reduce their whiff rates, they suffer a sharp decline in hitting quality (Bottom-left). This "Slapper" approach ensures the ball is put in play but with significantly less impact.
-- **The All-Around Stars**: **Shohei Ohtani** and **Juan Soto** serve as benchmarks for elite stability, maintaining high-quality contact profiles even when adjusting for contact.
-
----
-
-## 🚀 Key Takeaways & Conclusion
-
-- **Model Validity**: The strong alignment between K-Means clusters and 2-strike adaptation patterns validates that our archetypes reflect real-world hitting philosophies.
-- **The "Power vs. Contact" Spectrum**: From the extreme contact of **Luis Arraez** to the high-risk/high-reward profile of **Aaron Judge**, hitters navigate their physical limitations through tactical swing adjustments.
-- **Strategic Value**: This analysis provides a framework for coaches and front offices to identify which hitters possess a "B-swing" for survival and which hitters remain aggressive regardless of the count.
-
----
-*Created as a part of a personal Baseball Research & Analytics project.*
+```bash
+jupyter notebook swing_analysis.ipynb
+```
